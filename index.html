@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>مكالمة أحمد</title>
+  <link rel="manifest" href="manifest.json" />
+  <style>
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; font-family: -apple-system, "Segoe UI", Tahoma, sans-serif;
+      background: radial-gradient(circle at 50% 20%, #16233d, #0b1220 70%);
+      color: #fff; min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center; padding: 24px;
+      overflow: hidden;
+    }
+    h1 { font-size: 26px; margin: 0 0 4px; }
+    .sub { color: #8fa3c4; font-size: 15px; margin-bottom: 40px; }
+    .orb {
+      width: 170px; height: 170px; border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #4fc3f7, #1565c0 70%);
+      box-shadow: 0 0 60px rgba(79,195,247,.5);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 60px; margin-bottom: 40px; transition: transform .2s;
+    }
+    .orb.ringing { animation: shake .5s infinite; box-shadow: 0 0 80px rgba(255,193,7,.7);
+      background: radial-gradient(circle at 35% 30%, #ffd54f, #f57c00 70%); }
+    .orb.live { animation: pulse 1.4s infinite; box-shadow: 0 0 80px rgba(76,175,80,.7);
+      background: radial-gradient(circle at 35% 30%, #81c784, #2e7d32 70%); }
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+    @keyframes shake { 0%,100%{transform:rotate(0)} 25%{transform:rotate(-6deg)} 75%{transform:rotate(6deg)} }
+    .status { font-size: 17px; color: #b8c7e0; margin-bottom: 30px; min-height: 24px; }
+    button {
+      border: none; border-radius: 50px; padding: 18px 40px; font-size: 19px;
+      font-weight: 700; cursor: pointer; margin: 8px; transition: opacity .2s;
+      font-family: inherit;
+    }
+    button:active { opacity: .7; }
+    .btn-answer { background: #2e7d32; color: #fff; }
+    .btn-call { background: #1976d2; color: #fff; }
+    .btn-end { background: #c62828; color: #fff; }
+    .hidden { display: none !important; }
+    .hint { position: fixed; bottom: 16px; font-size: 12px; color: #5a6b85; padding: 0 20px; }
+  </style>
+</head>
+<body>
+  <h1>📞 مكالمة أحمد</h1>
+  <div class="sub">مساعدك الصوتي — جاهز للرد</div>
+
+  <div class="orb" id="orb">🤖</div>
+  <div class="status" id="status">اضغط "اتصل بأحمد" للبدء</div>
+
+  <button class="btn-answer hidden" id="answerBtn">✅ رد على المكالمة</button>
+  <button class="btn-call" id="callBtn">📞 اتصل بأحمد</button>
+  <button class="btn-end hidden" id="endBtn">🔴 إنهاء المكالمة</button>
+
+  <audio id="ringSound" loop>
+    <source src="data:audio/mpeg;base64," type="audio/mpeg">
+  </audio>
+
+  <div class="hint">للرنين التلقائي: خلّي الصفحة مفتوحة أو ثبّتها كتطبيق (أضف إلى الشاشة الرئيسية)</div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
