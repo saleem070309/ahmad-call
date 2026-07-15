@@ -68,8 +68,18 @@ callBtn.addEventListener("click", startCall);
 answerBtn.addEventListener("click", startCall);
 endBtn.addEventListener("click", endCall);
 
-// ===== الرنين التلقائي عند وصول إشارة =====
-// يفحص ملف signal.json كل 5 ثوانٍ. إذا تغيّر رقمه، يرنّ.
+// ===== الإشعارات + Service Worker =====
+if ("Notification" in window && Notification.permission === "default") {
+  Notification.requestPermission();
+}
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js").catch(() => {});
+  navigator.serviceWorker.addEventListener("message", (e) => {
+    if (e.data?.type === "RING" && !conversation) showRinging();
+  });
+}
+
+// ===== الرنين التلقائي داخل الصفحة (احتياطي عند فتحها) =====
 let lastSignal = null;
 async function checkSignal() {
   try {
